@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./libs/bootstrap-3.4.1-dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css" />
+        <link rel="stylesheet" href="./styles/log_reg.css" />
+        <title>登录注册</title>
+    </head>
+    <body>
+        <div class="container right-panel-active">
+
+            <!-- 注册 -->
+            <div class="container_form container--signup">
+                <form action="#" class="form" id="form1">
+                    <h2 class="form_title">Sign Up</h2>
+                    <input
+                        type="text"
+                        id="reg-username"
+                        name="reg-username"
+                        placeholder="User"
+                        class="input"
+                        onblur="checkregusername()"
+                    />
+                    <span id="userError"></span>
+                    <input
+                        type="email"
+                        id="reg-email"
+                        name="reg-email"
+                        placeholder="Email"
+                        class="input"
+                        onblur="checkregeamil()"
+                    />
+                    <span id="emailError"></span>
+                    <input
+                        type="password"
+                        id="reg-password"
+                        name="reg-password"
+                        placeholder="Password"
+                        class="input"
+                        onblur="checkregpassword()"
+                    />
+                    <span id="pwdError"></span>
+                    <button type="button" id="reg-submit" name="reg-submit" class="btn">Sign Up</button>
+                </form>
+            </div>
+
+            <!-- 登录 -->
+            <div class="container_form container--signin">
+                <form action="#" class="form" id="form2">
+                    <h2 class="form_title">Sign In</h2>
+                    <input
+                        type="text"
+                        id="log-username"
+                        name="log-username"
+                        placeholder="User"
+                        class="input"
+                        onblur="checklogusername()"
+                    />
+                    <span id="usernameError"></span>
+                    <input
+                        type="password"
+                        id="log-password"
+                        name="log-password"
+                        placeholder="Password"
+                        class="input"
+                        onblur="checklogpassword()"
+                    />
+                    <span id="passwordError"></span>
+                    <a href="#" class="link">Forgot your password?</a>
+                    <button type="button" id="log-submit" name="log-submit" class="btn">Sign In</button>
+                </form>
+            </div>
+
+            <!-- 浮层 -->
+            <div class="container_overlay">
+                <div class="overlay">
+                    <div class="overlay_panel overlay--left">
+                        <button class="btn" id="signIn">Sign In</button>
+                    </div>
+                    <div class="overlay_panel overlay--right">
+                        <button class="btn" id="signUp">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 背景 -->
+        <div class="slidershow">
+            <div class="slidershow--image" style="background-image: url('./images/001.jpg')"></div>
+            <div class="slidershow--image" style="background-image: url('./images/002.png')"></div>
+            <div class="slidershow--image" style="background-image: url('./images/003.jpg')"></div>
+            <div class="slidershow--image" style="background-image: url('./images/004.jpg')"></div>
+        </div>
+
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="./libs/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+        <script src="./js/log_reg.js"></script>
+
+        <script>
+            // 验证登录用户名
+            function checklogusername() {
+                let logusername = document.getElementById("log-username");
+                let username = logusername.value;
+                username = username.trim();
+
+                let usernameErrorSpan = document.getElementById("usernameError");
+                if (username.length === 0) {
+                    usernameErrorSpan.innerText = "用户名不能为空";
+                } else {
+                    if (username.length < 6 || username.length > 14) {
+                        usernameErrorSpan.innerText = "用户名长度必须在6-14之间";
+                    } else {
+                        let regExp = /^[A-Za-z0-9]+$/;
+                        let flag = regExp.test(username);
+                        if (flag) {
+                            //用户名合法
+                        } else {
+                            //用户名含有特殊符号
+                            usernameErrorSpan.innerText = "用户名含有特殊符号，只能有字母和数字组成";
+                        }
+                    }
+                }
+                logusername.onfocus = function () {
+                    if (usernameErrorSpan.innerText !== "") {
+                        logusername.value = "";
+                    }
+                    usernameErrorSpan.innerText = "";
+                };
+            }
+
+            // 验证登录密码
+            function checklogpassword() {
+                let logpassword = document.getElementById("log-password");
+                let password = logpassword.value;
+
+                let passwordErrorSpan = document.getElementById("passwordError");
+                if (password.length === 0) {
+                    passwordErrorSpan.innerText = "密码不能为空";
+                }
+                logpassword.onfocus = function () {
+                    if (passwordErrorSpan.innerText !== "") {
+                        logpassword.value = "";
+                    }
+                    passwordErrorSpan.innerText = "";
+                };
+            }
+
+            // 验证注册用户名
+            function checkregusername() {
+                let logusername = document.getElementById("reg-username");
+                let username = logusername.value;
+                username = username.trim();
+
+                let usernameErrorSpan = document.getElementById("userError");
+                if (username.length === 0) {
+                    usernameErrorSpan.innerText = "用户名不能为空";
+                } else {
+                    if (username.length < 6 || username.length > 14) {
+                        usernameErrorSpan.innerText = "用户名长度必须在6-14之间";
+                    } else {
+                        let regExp = /^[A-Za-z0-9]+$/;
+                        let flag = regExp.test(username);
+                        if (flag) {
+                            //用户名合法
+                        } else {
+                            //用户名含有特殊符号
+                            usernameErrorSpan.innerText = "用户名含有特殊符号，只能有字母和数字组成";
+                        }
+                    }
+                }
+                logusername.onfocus = function () {
+                    if (usernameErrorSpan.innerText !== "") {
+                        logusername.value = "";
+                    }
+                    usernameErrorSpan.innerText = "";
+                };
+            }
+
+            // 验证注册密码
+            function checkregpassword() {
+                let logpassword = document.getElementById("reg-password");
+                let password = logpassword.value;
+
+                let passwordErrorSpan = document.getElementById("pwdError");
+                if (password.length === 0) {
+                    passwordErrorSpan.innerText = "密码不能为空";
+                }
+                logpassword.onfocus = function () {
+                    if (passwordErrorSpan.innerText !== "") {
+                        logpassword.value = "";
+                    }
+                    passwordErrorSpan.innerText = "";
+                };
+            }
+
+            // 验证注册邮箱
+            function checkregeamil() {
+                let regemail = document.getElementById("reg-email");
+                let emailErrorSpan = document.getElementById("emailError");
+
+                let email = regemail.value;
+                let emailRedExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+                let flag = emailRedExp.test(email);
+                if (flag) {
+                    // 合法
+                } else {
+                    emailErrorSpan.innerText = "邮箱地址不合法";
+                }
+
+                regemail.onfocus = function () {
+                    if (emailErrorSpan.innerText !== "") {
+                        regemail.value = "";
+                    }
+                    emailErrorSpan.innerText = "";
+                };
+            }
+        </script>
+    </body>
+</html>

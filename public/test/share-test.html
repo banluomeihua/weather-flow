@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="./libs/bootstrap-3.4.1-dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css" />
+
+        <title>共享</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">气象数据查询</h3>
+                </div>
+                <div class="panel-body">
+                    <div style="display: inline-block">
+                        <div style="float: left; padding: 6px">
+                            <span>日期：</span>
+                        </div>
+                        <div style="float: left">
+                            <input
+                                id="date"
+                                name="date"
+                                class="form-control"
+                                style="width: 200px"
+                                placeholder="请输入日期"
+                            />
+                        </div>
+
+                        <div style="float: left; padding: 6px">
+                            <span>气象类型：</span>
+                        </div>
+                        <div style="float: left">
+                            <select id="weathertype" name="weathertype" class="form-control" style="width: 200px">
+                                <option value="">请选择</option>
+                                <option value="wind">风</option>
+                                <option value="Temperature">温度</option>
+                                <option value="Precipitable_water">降水量</option>
+                                <option value="Relative_humidity">相对湿度</option>
+                            </select>
+                        </div>
+
+<!--                        <div style="float: left; padding: 6px">-->
+<!--                            <span>预测时间：</span>-->
+<!--                        </div>-->
+<!--                        <div style="float: left">-->
+<!--                            <input-->
+<!--                                id="forecasttime"-->
+<!--                                name="forecasttime"-->
+<!--                                class="form-control"-->
+<!--                                style="width: 200px"-->
+<!--                                placeholder="请输入预测时间"-->
+<!--                            />-->
+<!--                        </div>-->
+
+                        <div style="float: left; margin-left: 20px">
+                            <input type="button" id="query" value="query" class="btn btn-primary" onclick="query()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table id="table"></table>
+        </div>
+
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="./libs/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+        <!--<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/locale/bootstrap-table-zh-CN.min.js"></script>-->
+        <script src="./libs/bootstrap-3.4.1-dist/js/bootstrap-table-zh-CN.min.js"></script>
+
+        <script>
+            function query() {
+                $.ajax({
+                    url: "http://127.0.0.1:5000/query",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        date: $("#date").val(),
+                        weathertype: $("#weathertype").val(),
+                        // forecasttime: $("#forecasttime").val()
+                    },
+                    success: function(res) {
+                        console.log(res['data1'].header.refTime);
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

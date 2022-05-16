@@ -1,0 +1,35 @@
+#jsondata {
+    /*float: left;*/
+    margin-right: 20px;
+    width: 100%;
+    height: 70vh;
+    outline: none;
+    padding: 5px;
+}
+#jsonPre {
+    width: 100%;
+    height: 70vh;
+    outline: 1px solid #ccc;
+    padding: 5px;
+    overflow: scroll;
+}
+
+.string {
+    color: RGB(205, 25, 69);
+}
+
+.number {
+    color: blue;
+}
+
+.boolean {
+    color: green;
+}
+
+.null {
+    color: magenta;
+}
+
+.key {
+    color: RGB(14, 103, 176);
+}

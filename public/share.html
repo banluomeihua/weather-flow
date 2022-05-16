@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="./libs/bootstrap-3.4.1-dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css" />
+        <!--        <link rel="stylesheet" href="./libs/layui/css/layui.css">-->
+        <link rel="stylesheet" href="./styles/share.css">
+
+        <title>共享</title>
+    </head>
+    <body>
+        <div class="container">
+            <ul class="nav nav-pills">
+                <li role="presentation" class="active"><a href="#">Home</a></li>
+                <li role="presentation"><a href="log_reg.html" id="login">Login</a></li>
+                <li role="presentation"><a href="#" id="logout">Logout</a></li>
+            </ul>
+            <br>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">气象数据查询</h3>
+                </div>
+                <div class="panel-body">
+                    <div style="display: inline-block">
+                        <div style="float: left; padding: 6px">
+                            <span>日期：</span>
+                        </div>
+                        <div style="float: left">
+                            <input
+                                id="date"
+                                name="date"
+                                class="form-control"
+                                style="width: 200px"
+                                placeholder="请输入日期"
+                            />
+                        </div>
+
+                        <div style="float: left; padding: 6px">
+                            <span>气象类型：</span>
+                        </div>
+                        <div style="float: left">
+                            <select id="weathertype" name="weathertype" class="form-control" style="width: 200px">
+                                <option value="">请选择</option>
+                                <option value="wind">风</option>
+                                <option value="Temperature">温度</option>
+                                <option value="Precipitable_water">降水量</option>
+                                <option value="Relative_humidity">相对湿度</option>
+                            </select>
+                        </div>
+
+                        <!--                        <div style="float: left; padding: 6px">-->
+                        <!--                            <span>预测时间：</span>-->
+                        <!--                        </div>-->
+                        <!--                        <div style="float: left">-->
+                        <!--                            <input-->
+                        <!--                                id="forecasttime"-->
+                        <!--                                name="forecasttime"-->
+                        <!--                                class="form-control"-->
+                        <!--                                style="width: 200px"-->
+                        <!--                                placeholder="请输入预测时间"-->
+                        <!--                            />-->
+                        <!--                        </div>-->
+
+                        <div style="float: left; margin-left: 20px">
+                            <input type="button" id="query" value="查询" class="btn btn-primary" onclick="query()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table
+                id="table"
+                data-show-refresh="true"
+                data-show-toggle="true"
+                data-show-columns="true"
+                data-search="true"
+                data-show-columns-toggle-all="true"
+                data-click-to-select="true"
+                data-detail-formatter="detailFormatter"
+                data-minimum-count-columns="2"
+                data-show-pagination-switch="true"
+                data-pagination="true"
+                data-id-field="id"
+                data-page-list="[10, 25, 50, 100, all]"
+                data-side-pagination="client"
+            ></table>
+        </div>
+
+        <div
+            class="modal fade"
+            id="myModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="myModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">查看详细数据</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--                        <textarea id="jsondata" readonly></textarea>-->
+                        <pre id="jsonPre"></pre>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <span class="" aria-hidden="true"></span>关闭
+                        </button>
+                        <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal">
+                            <span class="" aria-hidden="true"></span>保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="./libs/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+        <!--<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/locale/bootstrap-table-zh-CN.min.js"></script>-->
+        <script src="./libs/bootstrap-3.4.1-dist/js/bootstrap-table-zh-CN.min.js"></script>
+        <script src="./libs/bootstrap-3.4.1-dist/js/bootstrap-table-export.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+        <!--        <script src="./libs/bootstrap-3.4.1-dist/js/bootstrap-table-auto-refresh.min.js"></script>-->
+        <!--        <script src="./libs/layui/layui.js"></script>-->
+        <script src="./js/share.js"></script>
+    </body>
+</html>

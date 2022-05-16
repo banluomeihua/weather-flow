@@ -1,0 +1,11 @@
+.DS_Store
+.idea
+node_modules
+target
+scratch
+public/data/weather
+public/wxflow-config.js
+private/*
+!private/*.example.json
+tmp
+*.iml
