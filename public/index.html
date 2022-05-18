@@ -1,171 +1,230 @@
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/Map" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
-<head>
-    <meta charset="utf-8"/>
-    <title>earth (wx-flow) :: an animated map of global wind and weather</title>
-    <meta itemprop="name"                                      content="earth (wx-flow)"/>
-    <meta itemprop="description"     name="description"        content="an animated map of global wind and weather, edited by environmentanalytics.com"/>
-    <meta itemprop="author"          name="author"             content="Cameron Beccario"/>
+    <head>
+        <meta charset="utf-8" />
+        <title>全球气象可视化系统</title>
+        <meta itemprop="name" content="earth (wx-flow)" />
+        <meta
+            itemprop="description"
+            name="description"
+            content="an animated map of global wind and weather, edited by environmentanalytics.com"
+        />
+        <meta itemprop="author" name="author" content="Cameron Beccario" />
 
-    <meta property="og:type"        content="website"/>
-    <meta property="og:title"       content="earth"/>
-    <meta property="og:description" content="An animated map of global wind and weather. Visit the community at https://www.facebook.com/EarthWindMap"/>
-    <meta property="og:url"         content="http://earth.nullschool.net"/>
-    <meta property="og:image"       content="http://earth.nullschool.net/preview.jpg"/>
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="earth" />
+        <meta
+            property="og:description"
+            content="An animated map of global wind and weather. Visit the community at https://www.facebook.com/EarthWindMap"
+        />
+        <meta property="og:url" content="http://earth.nullschool.net" />
+        <meta property="og:image" content="http://earth.nullschool.net/preview.jpg" />
 
-    <link rel="shortcut icon" href="/favicon.ico"/>
-    <link rel="apple-touch-icon" sizes="120x120" href="/iphone-icon.png"/>
-    <link rel="apple-touch-icon" sizes="152x152" href="/ipad-icon.png"/>
-    <link rel="stylesheet" type="text/css" href="/styles/styles.css"/>
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/iphone-icon.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/ipad-icon.png" />
+        <link rel="stylesheet" href="./libs/bootstrap-3.4.1-dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="/styles/styles.css" />
 
-    <link rel="alternate" hreflang="x-default" href="http://earth.nullschool.net/"/>
-    <link rel="alternate" hreflang="ja" href="http://earth.nullschool.net/jp/"/>
-</head>
+        <link rel="alternate" hreflang="x-default" href="http://earth.nullschool.net/" />
+        <link rel="alternate" hreflang="ja" href="http://earth.nullschool.net/jp/" />
+    </head>
 
-<body data-lang="en">
+    <body data-lang="en">
+        <!--[if lte IE 8]><p id="warn">This site requires IE9 or newer.</p><![endif]-->
 
-    <!--[if lte IE 8]><p id="warn">This site requires IE9 or newer.</p><![endif]-->
-
-    <div id="display">
-        <svg id="map" class="fill-screen" xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>
-        <canvas id="animation" class="fill-screen"></canvas>
-        <canvas id="overlay" class="fill-screen"></canvas>
-        <svg id="foreground" class="fill-screen" xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>
-    </div>
-
-    <div id="sponsor" class="invisible">
-        <p><span id="sponsor-hide" class="text-button invisible"> ✕ </span>community</p>
-        <a id="sponsor-link" href="https://www.facebook.com/EarthWindMap">EarthWindMap</a>
-    </div>
-
-    <div id="details">
-        <p id="status"></p>
-        <div id="location">
-            <p>
-                <span id="location-coord"></span>
-                <span id="location-close" class="invisible text-button"> ✕ </span>
-            </p>
-            <p>
-                <span id="location-wind"></span>
-                <span id="location-wind-units" class="text-button"></span>
-            </p>
-            <p>
-                <span id="location-value"></span>
-                <span id="location-value-units" class="text-button"></span>
-            </p>
+        <div id="display">
+            <svg id="map" class="fill-screen" xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>
+            <canvas id="animation" class="fill-screen"></canvas>
+            <canvas id="overlay" class="fill-screen"></canvas>
+            <svg id="foreground" class="fill-screen" xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>
         </div>
 
-        <p id="earth">
-            <span id="show-menu" class="text-button" title="menu">earth</span>
-            <span id="progress" class="invisible"></span>
-        </p>
+        <!--    <div id="sponsor" class="invisible">-->
+        <!--        <p><span id="sponsor-hide" class="text-button invisible"> ✕ </span>community</p>-->
+        <!--        <a id="sponsor-link" href="https://www.facebook.com/EarthWindMap">EarthWindMap</a>-->
+        <!--    </div>-->
 
-        <p id="info">
-            <span id="show-info" class="text-button" title="info">info</span>
-        </p>
+        <!--    <div id="title1">-->
+        <!--        <h1 id="title2">全球气象可视化系统</h1>-->
+        <!--    </div>-->
 
-        <div id="menu" class="invisible">
-            <p>Date | <span
-                id="data-date" class="local"></span> <span
-                id="toggle-zone" class="text-button"></span>
+        <h1 class="ml14">
+            <span class="text-wrapper">
+                <span class="letters">全球气象可视化系统</span>
+                <span class="line"></span>
+            </span>
+        </h1>
+
+        <div id="details">
+            <p id="status"></p>
+            <div id="location">
+                <p>
+                    <span id="location-coord"></span>
+                    <span id="location-close" class="invisible text-button"> ✕ </span>
+                </p>
+                <p>
+                    <span id="location-wind"></span>
+                    <span id="location-wind-units" class="text-button"></span>
+                </p>
+                <p>
+                    <span id="location-value"></span>
+                    <span id="location-value-units" class="text-button"></span>
+                </p>
+            </div>
+
+
+            <p id="earth">
+                <span id="show-menu" class="text-button" title="menu">earth</span>
+                <span id="progress" class="invisible"></span>
             </p>
-            <p>Data | <span id="data-layer"></span></p>
-            <p>
-                <span id="scale-label">Scale | </span>
-                <input id="scale-lower-bound" class="scale-bound" type="text">
-                <canvas id="scale"></canvas>
-                <input id="scale-upper-bound" class="scale-bound" type="text">
-                <span id="scale-reset-default" class="text-button">default</span>
+
+            <p id="info">
+                <span id="show-info" class="text-button" title="info">info</span>
             </p>
-            <p>Source | <span id="data-center"></span></p>
-            <p>Control | <span
-                class="text-button" id="nav-now" title="Current Conditions">Now</span><span
-                class="text-button" id="nav-backward-more"> « </span> – <span
-                class="text-button" id="nav-backward"> ‹ </span> – <span
-                class="text-button" id="nav-forward"> › </span> – <span
-                class="text-button" id="nav-forward-more"> » </span><span
-                class="text-button" id="show-location" title="Current Position">〖◯〗</span><span
-                class="text-button" id="option-show-grid" title="Toggle Grid">Grid</span><span
-                class="text-button highlighted" id="animate-start" title="Start/Stop Animation"> ▷ </span>
-            </p>
-            <p>Mode | <span
-                class="text-button" id="wind-mode-enable">Air</span> – <span
-                class="text-button" id="ocean-mode-enable">Ocean</span>
-            </p>
-<!--            <p class="wind-mode">Height | <span-->
-<!--                class="surface text-button" id="surface-level" title="Surface">Sfc</span> – <span-->
-<!--                class="surface text-button" id="isobaric-1000hPa">1000</span> – <span-->
-<!--                class="surface text-button" id="isobaric-850hPa">850</span> – <span-->
-<!--                class="surface text-button" id="isobaric-700hPa">700</span> – <span-->
-<!--                class="surface text-button" id="isobaric-500hPa">500</span> – <span-->
-<!--                class="surface text-button" id="isobaric-250hPa">250</span> – <span-->
-<!--                class="surface text-button" id="isobaric-70hPa">70</span> – <span-->
-<!--                class="surface text-button" id="isobaric-10hPa">10</span> hPa-->
-<!--            </p>-->
-            <p class="wind-mode">Overlay | <span
-                class="text-button" id="overlay-off">None</span> – <span
-                class="text-button" id="overlay-wind" title="Wind Speed">Wind</span> – <span
-                class="text-button" id="overlay-temp" title="Temperature">Temp</span> – <span
-                class="text-button" id="overlay-relative_humidity" title="Relative Humidity">RH</span> – <span
-                class="text-button" id="overlay-geopotential" title="Geopotential Height">GEOP</span>
-            </p>
-            <p class="wind-mode"><span style="visibility:hidden">Overlay</span> | <span
-                class="text-button" id="overlay-total_precipitable_water" title="Total Precipitable Water">TPW</span> – <span
-                class="text-button" id="overlay-total_cloud_water" title="Total Cloud Water">TCW</span> – <span
-                class="text-button" id="overlay-mean_sea_level_pressure" title="Mean Sea Level Pressure">MSLP</span>
-            </p>
-            <p class="ocean-mode invisible">Animate | <span
-                class="text-button" id="animate-currents" title="Currents">Currents</span>
-            </p>
-            <p class="ocean-mode invisible">Overlay | <span
-                class="text-button" id="overlay-ocean-off">None</span> – <span
-                class="text-button" id="overlay-currents" title="Currents">Currents</span>
-            </p>
-            <p class="ocean-mode invisible"><span style="visibility:hidden">Overlay</span> |</p>
-            <p>Projection | <span
-                class="proj text-button" id="atlantis" title="Atlantis">A</span> – <span
-                class="proj text-button" id="azimuthal_equidistant" title="Azimuthal Equidistant">AE</span> – <span
-                class="proj text-button" id="conic_equidistant" title="Conic Equidistant">CE</span> – <span
-                class="proj text-button" id="equirectangular" title="Equirectangular">E</span> – <span
-                class="proj text-button" id="orthographic" title="Orthographic">O</span> – <span
-                class="proj text-button" id="stereographic" title="Stereographic">S</span> – <span
-                class="proj text-button" id="waterman" title="Waterman Butterfly">WB</span> – <span
-                class="proj text-button" id="winkel3" title="Winkel Tripel">W3</span>
-            </p>
-<!--            <p id="lang"><a href="./jp" class="internal-link">中文</a></p>-->
-            <p>
-                <a href="share.html" class="internal-link" id="share">share-</a>
-<!--                <a href="log_reg.html" class="internal-link">login</a>-->
-<!--                <a href="#" class="internal-link">logout</a>-->
-<!--                <a href="https://www.facebook.com/EarthWindMap" class="social-icon" title="Facebook">&#xe027;</a>-->
-<!--                <a href="https://twitter.com/cambecc" class="social-icon" title="Twitter">&#xe086;</a>-->
-<!--                <a href="http://environmentanalytics.com" class="internal-link">env-analytics</a>-->
-            </p>
+
+            <!--        <ul class="nav nav-pills">-->
+            <!--            <li role="presentation" class="active"><a href="#">Home</a></li>-->
+            <!--            <li role="presentation"><a href="#">Profile</a></li>-->
+            <!--            <li role="presentation"><a href="#">Messages</a></li>-->
+            <!--        </ul>-->
+
+            <div id="menu" class="invisible">
+                <p>
+                    日期 | <span id="data-date" class="local"></span> <span id="toggle-zone" class="text-button"></span>
+                </p>
+                <p>数据 | <span id="data-layer"></span></p>
+                <p>
+                    <span id="scale-label">数据范围 | </span>
+                    <input id="scale-lower-bound" class="scale-bound" type="text" />
+                    <canvas id="scale"></canvas>
+                    <input id="scale-upper-bound" class="scale-bound" type="text" />
+                    <span id="scale-reset-default" class="text-button"></span>
+                </p>
+                <p>数据来源 | <span id="data-center"></span></p>
+                <p>
+                    控制 | <span class="text-button" id="nav-now" title="Current Conditions">Now</span
+                    ><span class="text-button" id="nav-backward-more"> « </span> –
+                    <span class="text-button" id="nav-backward"> ‹ </span> –
+                    <span class="text-button" id="nav-forward"> › </span> –
+                    <span class="text-button" id="nav-forward-more"> » </span
+                    ><span class="text-button" id="show-location" title="Current Position">〖◯〗</span
+                    ><span class="text-button" id="option-show-grid" title="Toggle Grid">Grid</span
+                    ><span class="text-button highlighted" id="animate-start" title="Start/Stop Animation"> ▷ </span>
+                </p>
+                <p>
+                    模式 | <span class="text-button" id="wind-mode-enable">大气</span> –
+                    <span class="text-button" id="ocean-mode-enable">海洋</span>
+                </p>
+                <!--            <p class="wind-mode">Height | <span-->
+                <!--                class="surface text-button" id="surface-level" title="Surface">Sfc</span> – <span-->
+                <!--                class="surface text-button" id="isobaric-1000hPa">1000</span> – <span-->
+                <!--                class="surface text-button" id="isobaric-850hPa">850</span> – <span-->
+                <!--                class="surface text-button" id="isobaric-700hPa">700</span> – <span-->
+                <!--                class="surface text-button" id="isobaric-500hPa">500</span> – <span-->
+                <!--                class="surface text-button" id="isobaric-250hPa">250</span> – <span-->
+                <!--                class="surface text-button" id="isobaric-70hPa">70</span> – <span-->
+                <!--                class="surface text-button" id="isobaric-10hPa">10</span> hPa-->
+                <!--            </p>-->
+                <p class="wind-mode">
+                    覆盖模式 | <span class="text-button" id="overlay-off">无</span> –
+                    <span class="text-button" id="overlay-wind" title="Wind Speed">风</span> –
+                    <span class="text-button" id="overlay-temp" title="Temperature">温度</span> –
+                    <span class="text-button" id="overlay-relative_humidity" title="Relative Humidity">相对湿度</span> –
+                    <span class="text-button" id="overlay-total_precipitable_water" title="Total Precipitable Water">总降水量</span>
+                </p>
+                <!--            <p class="wind-mode" style="visibility: hidden"><span style="visibility:hidden">Overlay</span> | <span-->
+                <!--                    class="text-button" id="overlay-geopotential" title="Geopotential Height">GEOP</span> – <span-->
+                <!--                class="text-button" id="overlay-total_cloud_water" title="Total Cloud Water">TCW</span> – <span-->
+                <!--                class="text-button" id="overlay-mean_sea_level_pressure" title="Mean Sea Level Pressure">MSLP</span>-->
+                <!--            </p>-->
+                <p class="ocean-mode invisible">
+                    Animate | <span class="text-button" id="animate-currents" title="Currents">Currents</span>
+                </p>
+                <p class="ocean-mode invisible">
+                    Overlay | <span class="text-button" id="overlay-ocean-off">None</span> –
+                    <span class="text-button" id="overlay-currents" title="Currents">Currents</span>
+                </p>
+                <p class="ocean-mode invisible"><span style="visibility: hidden">Overlay</span> |</p>
+                <p>
+                    投影 | <span class="proj text-button" id="atlantis" title="Atlantis">A</span> –
+                    <span class="proj text-button" id="azimuthal_equidistant" title="Azimuthal Equidistant">AE</span> –
+                    <span class="proj text-button" id="conic_equidistant" title="Conic Equidistant">CE</span> –
+                    <span class="proj text-button" id="equirectangular" title="Equirectangular">E</span> –
+                    <span class="proj text-button" id="orthographic" title="Orthographic">O</span> –
+                    <span class="proj text-button" id="stereographic" title="Stereographic">S</span> –
+                    <span class="proj text-button" id="waterman" title="Waterman Butterfly">WB</span> –
+                    <span class="proj text-button" id="winkel3" title="Winkel Tripel">W3</span>
+                </p>
+                <!--            <p id="lang"><a href="./jp" class="internal-link">中文</a></p>-->
+                <p>
+                    <a href="share.html" class="internal-link" id="share">数据共享</a>
+                    <!--                <a href="log_reg.html" class="internal-link">login</a>-->
+                    <!--                <a href="#" class="internal-link">logout</a>-->
+                    <!--                <a href="https://www.facebook.com/EarthWindMap" class="social-icon" title="Facebook">&#xe027;</a>-->
+                    <!--                <a href="https://twitter.com/cambecc" class="social-icon" title="Twitter">&#xe086;</a>-->
+                    <!--                <a href="http://environmentanalytics.com" class="internal-link">env-analytics</a>-->
+                </p>
+            </div>
         </div>
-    </div>
 
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js" charset="utf-8"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js" charset="utf-8"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js" charset="utf-8"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.3.10/d3.min.js" charset="utf-8"></script>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="./libs/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js" charset="utf-8"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js" charset="utf-8"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js" charset="utf-8"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.3.10/d3.min.js" charset="utf-8"></script>
 
-<!--
+        <!--
     <script src="/libs/underscore.js/1.6.0/underscore.js" charset="utf-8"></script>
     <script src="/libs/backbone.js/1.1.0/backbone.js" charset="utf-8"></script>
     <script src="/libs/topojson/1.1.0/topojson.js" charset="utf-8"></script>
     <script src="/libs/d3/3.3.10/d3.js" charset="utf-8"></script>
 -->
 
-    <script src="/libs/d3.geo/0.0.0/d3.geo.projection.v0.min.js" charset="utf-8"></script>
-    <script src="/libs/d3.geo/0.0.0/d3.geo.polyhedron.v0.min.js" charset="utf-8"></script>
-    <script src="/libs/when/2.6.0/when.js" charset="utf-8"></script>
+        <script src="/libs/d3.geo/0.0.0/d3.geo.projection.v0.min.js" charset="utf-8"></script>
+        <script src="/libs/d3.geo/0.0.0/d3.geo.polyhedron.v0.min.js" charset="utf-8"></script>
+        <script src="/libs/when/2.6.0/when.js" charset="utf-8"></script>
 
-    <script src="/wxflow-config.js"></script>
-    <script src="/libs/earth/1.0.0/micro.js" charset="utf-8"></script>
-    <script src="/libs/earth/1.0.0/globes.js" charset="utf-8"></script>
-    <script src="/libs/earth/1.0.0/scales.js" charset="utf-8"></script>
-    <script src="/libs/earth/1.0.0/products.js" charset="utf-8"></script>
-    <script src="/libs/earth/1.0.0/earth.js" charset="utf-8"></script>
-</body>
+        <script src="/wxflow-config.js"></script>
+        <script src="/libs/earth/1.0.0/micro.js" charset="utf-8"></script>
+        <script src="/libs/earth/1.0.0/globes.js" charset="utf-8"></script>
+        <script src="/libs/earth/1.0.0/scales.js" charset="utf-8"></script>
+        <script src="/libs/earth/1.0.0/products.js" charset="utf-8"></script>
+        <script src="/libs/earth/1.0.0/earth.js" charset="utf-8"></script>
+
+        <script>
+            let textWrapper = document.querySelector(".ml14 .letters");
+            textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+            anime
+                .timeline({ loop: true })
+                .add({
+                    targets: ".ml14 .line",
+                    scaleX: [0, 1],
+                    opacity: [0.5, 1],
+                    easing: "easeInOutExpo",
+                    duration: 900,
+                })
+                .add({
+                    targets: ".ml14 .letter",
+                    opacity: [0, 1],
+                    translateX: [40, 0],
+                    translateZ: 0,
+                    scaleX: [0.3, 1],
+                    easing: "easeOutExpo",
+                    duration: 800,
+                    offset: "-=600",
+                    delay: (el, i) => 150 + 25 * i,
+                })
+                .add({
+                    targets: ".ml14",
+                    opacity: 0,
+                    duration: 1000,
+                    easing: "easeOutExpo",
+                    delay: 1000,
+                });
+        </script>
+    </body>
 </html>

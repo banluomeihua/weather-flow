@@ -90,7 +90,9 @@ function query() {
                     return (
                         '<button id="details" type="button" class="btn btn-info btngroup" data-target:"#myModal">详情</button>' +
                         "&nbsp;&nbsp;" +
-                        '<button id="download" type="button" class="btn btn-info btngroup">下载</button>'
+                        '<button id="download" type="button" class="btn btn-info btngroup">下载</button>' +
+                        "&nbsp;&nbsp;" +
+                        '<button id="preview" type="button" class="btn btn-info btngroup" data-target:"#myPreview">预览</button>'
                     );
                 },
                 events: {
@@ -105,6 +107,11 @@ function query() {
                         let stringify = JSON.stringify(row, null, 2);
                         let blob = new Blob([stringify], { type: "application/json,charset=utf-8;" });
                         saveAs(blob, row.weathertype + "-" + row.forecasttime + ".json");
+                    },
+                    "click #preview": function (e, value, row, index) {
+                        $("#myPreview").modal();
+                        let stringify = JSON.stringify(row, null, 2);
+                        addScalarLayer('temp', stringify);
                     },
                 },
             },
@@ -155,3 +162,36 @@ $(function () {
         window.location.reload();
     })
 })
+
+let map = L.map('map');
+L.tileLayer('http://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',{ subdomains: "1234"}).addTo(map);
+map.setView(L.latLng(37.550339, 104.114129), 1);
+
+function addScalarLayer(type,data) {
+    let config = {};
+    switch (type) {
+        case 'wind':
+            config = {...config, minValue:0.01,maxValue:30}
+            break;
+
+        case 'temp':
+            config = {...config, minValue:270,maxValue:300}
+            break;
+
+        default:
+            config = {...config,minValue:-30.0,maxValue:40}
+            break;
+    }
+
+    var scalarLayer =new L.scalarLayer({
+        displayValues: false,
+        displayOptions: {
+            velocityType: "",
+            displayPosition: "",
+            displayEmptyString: ""
+        },
+        ...config
+    })
+    scalarLayer.setData(data);
+    scalarLayer.onAdd(map)
+}

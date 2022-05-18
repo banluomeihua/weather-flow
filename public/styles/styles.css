@@ -4,12 +4,12 @@
 
 @font-face {
     font-family: mplus-2p-light-sub;
-    src: url("/styles/mplus-2p-light-sub.ttf?v6");
+    src: url("/mplus-2p-light-sub.ttf?v6");
 }
 
 @font-face {
     font-family: monosocialiconsfont-sub;
-    src: url("/styles/monosocialiconsfont-sub.ttf?v1");
+    src: url("/monosocialiconsfont-sub.ttf?v1");
 }
 
 /**************************************************************************************************
@@ -259,6 +259,36 @@ body {
     stroke-width: 2.5;
     fill: none;
 }
+
+.ml14 {
+    font-weight: 200;
+    font-size: 1.6em;
+}
+
+.ml14 .text-wrapper {
+    position: relative;
+    display: inline-block;
+    padding-top: 0.1em;
+    padding-right: 0.05em;
+    padding-bottom: 0.15em;
+}
+
+.ml14 .line {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #fff;
+    transform-origin: 100% 100%;
+    bottom: 0;
+}
+
+.ml14 .letter {
+    display: inline-block;
+    line-height: 1em;
+}
+
 
 /**************************************************************************************************
  * About Page
